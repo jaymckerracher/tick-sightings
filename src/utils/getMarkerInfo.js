@@ -45,7 +45,6 @@ export default function getMarkerInfo(sightings) {
         }
     }
 
-    // console.log(markerInfo)
     return markerInfo
 }
 
