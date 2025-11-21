@@ -7,6 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import Map from "./pages/Map";
+import Report from "./pages/Report";
 
 const root = document.getElementById("root");
 
@@ -14,6 +15,7 @@ ReactDOM.createRoot(root).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Map />}/>
+      <Route path="/report-sighting" element={<Report />}/>
     </Routes>
   </BrowserRouter>,
 );
