@@ -1,5 +1,6 @@
 import { Marker, Popup } from "react-leaflet"
 import createIcon from '../utils/icons';
+import { useEffect } from "react";
 
 export default function MapMarker({markerInfo}) {
     let colour;
@@ -12,8 +13,12 @@ export default function MapMarker({markerInfo}) {
         colour = 'gold';
     }
 
+    useEffect(() => {
+        console.log(markerInfo, 'this is the marker info!')
+    }, [])
+
     return (
-        <Marker position={[54.5, -3.5]} icon={createIcon(colour)}>
+        <Marker position={[markerInfo.lat, markerInfo.long]} icon={createIcon(colour)}>
             <Popup>
                 <h1>Hello</h1>
                 <p>This is the popup</p>
