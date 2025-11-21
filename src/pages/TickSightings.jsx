@@ -6,6 +6,7 @@ import getMarkerInfo from '../utils/getMarkerInfo';
 
 export default function Sightings() {
     const [loading, setLoading] = useState(true)
+    const [markerInfo, setMarkerInfo] = useState();
 
     useEffect(() => {
         axios.get('https://dev-task.elancoapps.com/data/tick-sightings')
@@ -13,7 +14,10 @@ export default function Sightings() {
                 return response.data
             })
             .then(function (data) {
-                getMarkerInfo(data)
+                setMarkerInfo(getMarkerInfo(data))
+            })
+            .then(function () {
+                setLoading(false)
             })
             .catch(function (err) {
                 console.log(err)
@@ -26,7 +30,7 @@ export default function Sightings() {
         )
     } else return (
         <>
-            <Map />
+            <Map markerInfo={markerInfo}/>
         </>
     );
 }
