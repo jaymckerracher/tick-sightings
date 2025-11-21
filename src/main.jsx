@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import 'leaflet/dist/leaflet.css';
 
-import Map from "./pages/Sightings";
+import Map from "./pages/TickSightings";
 import Report from "./pages/Report";
 
 const root = document.getElementById("root");

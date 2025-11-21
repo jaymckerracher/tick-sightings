@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import createIcon from '../utils/icons';
 
 export default function Map() {
     const ukBounds = [
@@ -20,9 +21,10 @@ export default function Map() {
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
                 />
-                <Marker position={[54.5, -3.5]}>
+                <Marker position={[54.5, -3.5]} icon={createIcon('green')}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        <h1>Hello</h1>
+                        <p>This is the popup</p>
                     </Popup>
                 </Marker>
             </MapContainer>
