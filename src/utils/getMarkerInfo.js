@@ -1,9 +1,9 @@
+import cities from '../cities.json';
+
 export default function getMarkerInfo(sightings) {
     const markerInfo = {}
 
     for (const sighting of sightings) {
-        // console.log(sighting.date)
-
         const now = new Date()
         const sightingDate = new Date(sighting.date)
         const twoYearsAgo =  2 * 365 * 24 * 60 * 60 * 1000; // two years for the sake of demo
@@ -21,8 +21,21 @@ export default function getMarkerInfo(sightings) {
             const recentSpeciesSet = new Set()
             if (isSightingRecent) recentSpeciesSet.add(sighting.species)
 
+            // Find city in gb.json
+            const cityData = cities.find(city => city.city.toLowerCase() === sighting.location.toLowerCase());
+            let lat = null;
+            let long = null;
+            if (cityData) {
+                lat = parseFloat(cityData.lat);
+                long = parseFloat(cityData.lng);
+            } else {
+                console.log(sighting.location)
+            }
+
             markerInfo[sighting.location] = {
                 name: sighting.location,
+                lat: lat,
+                long: long,
                 sightings: 1,
                 recentSightings: isSightingRecent ? 1 : 0,
                 speciesSeen: speciesSet,
@@ -32,7 +45,8 @@ export default function getMarkerInfo(sightings) {
         }
     }
 
-    console.log(markerInfo)
+    // console.log(markerInfo)
+    return markerInfo
 }
 
 // const exampleObj = {
