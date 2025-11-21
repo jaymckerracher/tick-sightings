@@ -6,8 +6,8 @@ export default function getMarkerInfo(sightings) {
 
         const now = new Date()
         const sightingDate = new Date(sighting.date)
-        const daysAgo30 =  2 * 365 * 24 * 60 * 60 * 1000; // two years for the sake of demo
-        const isSightingRecent = now - sightingDate <= daysAgo30
+        const twoYearsAgo =  2 * 365 * 24 * 60 * 60 * 1000; // two years for the sake of demo
+        const isSightingRecent = now - sightingDate <= twoYearsAgo
 
         if (sighting.location in markerInfo) {
             markerInfo[sighting.location].sightings ++
