@@ -2,18 +2,18 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 export default function Map() {
     const ukBounds = [
-        [49.5, -11], // Southwest
-        [61, 2]      // Northeast
+        [48.5, -13],
+        [62, 4]
     ];
 
     return (
         <div className="map-wrapper">
             <MapContainer
                 className="leaflet-map"
-                center={[54.5, -3.5]} // Centered on the UK
+                center={[54.5, -3.5]}
                 zoom={6}
                 scrollWheelZoom={true}
-                minZoom={5}
+                minZoom={6}
                 maxBounds={ukBounds}
             >
                 <TileLayer
