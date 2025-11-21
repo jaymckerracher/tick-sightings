@@ -1,7 +1,17 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* ==== PAGES ==== */
+
+/* ==== COMPONENTS ==== */
+
+/* Map */
 .map-wrapper {
-	height: 60vh;
-	min-height: 400px;
-	width: 100%;
+	height: 100vh;
+  width: 100%;
 }
 
 .leaflet-map {
