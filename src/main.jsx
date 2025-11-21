@@ -1,10 +1,12 @@
+import './index.css';
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import 'leaflet/dist/leaflet.css';
 
 import Map from "./pages/Map";
 import Report from "./pages/Report";
