@@ -1,31 +1,60 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
+import { useEffect, useState } from 'react';
+
+import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
 
-export default function Map({markerInfo, setTickPanelInfo}) {
+import getAllData from '../utils/getAllData';
+import getMarkersData from '../utils/getMarkersData';
+
+export default function Map({setTickPanelInfo}) {
     const ukBounds = [
         [48.5, -13],
         [62, 4]
     ];
 
-    return (
-        <div className="map-wrapper">
-            <MapContainer
-                className="leaflet-map"
-                center={[54.5, -3.5]}
-                zoom={6}
-                scrollWheelZoom={true}
-                minZoom={6}
-                maxBounds={ukBounds}
-            >
-                <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                    attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
-                />
+    const [markersData, setMarkersData] = useState()
+    const [mapLoading, setMapLoading] = useState(true)
 
-                {Object.values(markerInfo).map(info => (
-                    <MapMarker key={info.name} markerInfo={info} setTickPanelInfo={setTickPanelInfo}/>
-                ))}
-            </MapContainer>
-        </div>
-    );
+    useEffect(() => {
+        getAllData()
+            .then(function (data) {
+                setMarkersData(getMarkersData(data))
+            })
+            .then(() => {
+                setMapLoading(false)
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+    }, [])
+
+    if (mapLoading) {
+        return (
+            <CircularProgress />
+        )
+    } else {
+        return (
+            <div className="map-wrapper">
+                <MapContainer
+                    className="leaflet-map"
+                    center={[54.5, -3.5]}
+                    zoom={6}
+                    scrollWheelZoom={true}
+                    minZoom={6}
+                    maxBounds={ukBounds}
+                >
+                    <TileLayer
+                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    />
+    
+                    {Object.values(markersData).map(info => (
+                        <MapMarker key={info.name} markerInfo={info} setTickPanelInfo={setTickPanelInfo}/>
+                    ))}
+                </MapContainer>
+            </div>
+        );
+    }
+
 }
