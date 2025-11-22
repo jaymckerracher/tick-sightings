@@ -49,8 +49,8 @@ export default function Map({setTickPanelInfo}) {
                         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
                     />
     
-                    {Object.values(markersData).map(info => (
-                        <MapMarker key={info.name} markerInfo={info} setTickPanelInfo={setTickPanelInfo}/>
+                    {Object.values(markersData).map(data => (
+                        <MapMarker key={data.name} markersData={data} setTickPanelInfo={setTickPanelInfo}/>
                     ))}
                 </MapContainer>
             </div>

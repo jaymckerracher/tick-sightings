@@ -1,4 +1,3 @@
-
 import L from 'leaflet'
 import green from '../assets/marker-icon-green.png'
 import gold from '../assets/marker-icon-gold.png'

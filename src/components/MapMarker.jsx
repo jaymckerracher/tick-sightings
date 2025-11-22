@@ -3,15 +3,16 @@ import createIcon from '../utils/icons';
 import { useRef } from "react";
 import { Typography } from "@mui/material";
 import getTickPanelInfo from "../utils/getTickPanelInfo";
+import formatDate from "../utils/formatDate";
 
-export default function MapMarker({markerInfo, setTickPanelInfo}) {
+export default function MapMarker({markersData, setTickPanelInfo}) {
     let colour
     let severityLevel
 
-    if (markerInfo.recentSightings >= 7) {
+    if (markersData.recentSightings >= 7) {
         colour = 'red'
         severityLevel = 'High'
-    } else if (markerInfo.recentSightings <= 3) {
+    } else if (markersData.recentSightings <= 3) {
         colour = 'green'
         severityLevel = 'Low'
     } else {
@@ -23,7 +24,7 @@ export default function MapMarker({markerInfo, setTickPanelInfo}) {
 
     return (
         <Marker
-            position={[markerInfo.lat, markerInfo.long]}
+            position={[markersData.lat, markersData.long]}
             icon={createIcon(colour)}
             ref={markerRef}
             eventHandlers={{
@@ -34,17 +35,17 @@ export default function MapMarker({markerInfo, setTickPanelInfo}) {
                         markerRef.current.closePopup()
                     },
                     click: () => {
-                        getTickPanelInfo(markerInfo.name, setTickPanelInfo)
+                        getTickPanelInfo(markersData.name, setTickPanelInfo)
                     }
             }}
         >
             <Popup>
-                <Typography variant="h1" color="secondary" sx={{ fontSize: '1.5rem' }}>{markerInfo.name}</Typography>
+                <Typography variant="h1" color="secondary" sx={{ fontSize: '1.5rem' }}>{markersData.name}</Typography>
                 <Typography variant="body1" color="secondary">Severity: {severityLevel}</Typography>
-                <Typography variant="body1" color="secondary">Recent sightings: {markerInfo.recentSightings}</Typography>
-                <Typography variant="body1" color="secondary">Total sightings: {markerInfo.sightings}</Typography>
-                <Typography variant="body1" color="secondary">Most recent sighting:{markerInfo.mostRecentSighting}</Typography>
-                <Typography variant="body1" color="secondary">Recent species seen: {[...markerInfo.recentSpeciesSeen].join(", ")}</Typography>
+                <Typography variant="body1" color="secondary">Recent sightings: {markersData.recentSightings}</Typography>
+                <Typography variant="body1" color="secondary">Total sightings: {markersData.sightings}</Typography>
+                <Typography variant="body1" color="secondary">Most recent sighting: {formatDate(markersData.mostRecentSighting)}</Typography>
+                <Typography variant="body1" color="secondary">Recent species seen: {[...markersData.recentSpeciesSeen].join(", ")}</Typography>
             </Popup>
         </Marker>
     )
