@@ -2,15 +2,16 @@ import { Marker, Popup, Tooltip } from "react-leaflet"
 import createIcon from '../utils/icons';
 import { useEffect, useRef } from "react";
 import { marker } from "leaflet";
+import { Typography } from "@mui/material";
 
 export default function MapMarker({markerInfo}) {
     let colour
     let severityLevel
 
-    if (markerInfo.recentSightings >= 6) {
+    if (markerInfo.recentSightings >= 7) {
         colour = 'red'
         severityLevel = 'High'
-    } else if (markerInfo.recentSightings <= 2) {
+    } else if (markerInfo.recentSightings <= 3) {
         colour = 'green'
         severityLevel = 'Low'
     } else {
@@ -38,12 +39,12 @@ export default function MapMarker({markerInfo}) {
             }}
         >
             <Popup>
-                <h1 className="popup-heading">{markerInfo.name}</h1>
-                <p className="popup-info">Severity: <strong>{severityLevel}</strong></p>
-                <p className="popup-info">Recent sightings: <strong>{markerInfo.recentSightings}</strong></p>
-                <p className="popup-info">Total sightings: <strong>{markerInfo.sightings}</strong></p>
-                <p className="popup-info">Most recent sighting: <strong>{markerInfo.mostRecentSighting}</strong></p>
-                <p className="popup-info">Recent species seen: <strong>{[...markerInfo.recentSpeciesSeen].join(", ")}</strong></p>
+                <Typography variant="h1" color="secondary" sx={{ fontSize: '1.5rem' }}>{markerInfo.name}</Typography>
+                <Typography variant="body1" color="secondary">Severity: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{severityLevel}</Typography></Typography>
+                <Typography variant="body1" color="secondary">Recent sightings: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.recentSightings}</Typography></Typography>
+                <Typography variant="body1" color="secondary">Total sightings: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.sightings}</Typography></Typography>
+                <Typography variant="body1" color="secondary">Most recent sighting: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.mostRecentSighting}</Typography></Typography>
+                <Typography variant="body1" color="secondary">Recent species seen: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{[...markerInfo.recentSpeciesSeen].join(", ")}</Typography></Typography>
             </Popup>
         </Marker>
     )

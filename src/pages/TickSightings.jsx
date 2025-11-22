@@ -3,10 +3,12 @@ import Map from '../components/Map';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import getMarkerInfo from '../utils/getMarkerInfo';
+import TicksPanel from '../components/TicksPanel';
 
 export default function Sightings() {
     const [loading, setLoading] = useState(true)
-    const [markerInfo, setMarkerInfo] = useState();
+    const [markerInfo, setMarkerInfo] = useState()
+    const [showTicksPanel, setShowTicksPanel] = useState(false)
 
     useEffect(() => {
         axios.get('https://dev-task.elancoapps.com/data/tick-sightings')
@@ -31,6 +33,7 @@ export default function Sightings() {
     } else return (
         <>
             <Map markerInfo={markerInfo}/>
+            <TicksPanel />
         </>
     );
 }

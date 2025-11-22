@@ -7,17 +7,31 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import 'leaflet/dist/leaflet.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import Map from "./pages/TickSightings";
 import Report from "./pages/Report";
 
 const root = document.getElementById("root");
 
+const theme = createTheme({
+  palette: {
+    primary: { main: '#f5f5f7' }, // soft off-white
+    secondary: { main: '#222831' }, // less harsh black for text
+    customBlue: { main: '#1976d2', contrastText: '#fff' }, // blue for buttons
+  },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+  },
+});
+
 ReactDOM.createRoot(root).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Map />}/>
-      <Route path="/report-sighting" element={<Report />}/>
-    </Routes>
-  </BrowserRouter>,
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Map />}/>
+        <Route path="/report-sighting" element={<Report />}/>
+      </Routes>
+    </BrowserRouter>
+  </ThemeProvider>
 );
