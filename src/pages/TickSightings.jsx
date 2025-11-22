@@ -8,6 +8,7 @@ import TicksPanel from '../components/TicksPanel';
 export default function Sightings() {
     const [loading, setLoading] = useState(true)
     const [markerInfo, setMarkerInfo] = useState()
+    const [tickPanelInfo, setTickPanelInfo] = useState()
     const [showTicksPanel, setShowTicksPanel] = useState(false)
 
     useEffect(() => {
@@ -32,8 +33,8 @@ export default function Sightings() {
         )
     } else return (
         <>
-            <Map markerInfo={markerInfo}/>
-            <TicksPanel />
+            <Map markerInfo={markerInfo} setTickPanelInfo={setTickPanelInfo}/>
+            <TicksPanel tickPanelInfo={tickPanelInfo}/>
         </>
     );
 }

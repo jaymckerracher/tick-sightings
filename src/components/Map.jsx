@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import MapMarker from './MapMarker';
 
-export default function Map({markerInfo}) {
+export default function Map({markerInfo, setTickPanelInfo}) {
     const ukBounds = [
         [48.5, -13],
         [62, 4]
@@ -23,7 +23,7 @@ export default function Map({markerInfo}) {
                 />
 
                 {Object.values(markerInfo).map(info => (
-                    <MapMarker key={info.name} markerInfo={info} />
+                    <MapMarker key={info.name} markerInfo={info} setTickPanelInfo={setTickPanelInfo}/>
                 ))}
             </MapContainer>
         </div>

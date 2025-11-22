@@ -3,8 +3,9 @@ import createIcon from '../utils/icons';
 import { useEffect, useRef } from "react";
 import { marker } from "leaflet";
 import { Typography } from "@mui/material";
+import getTickPanelInfo from "../utils/getTickPanelInfo";
 
-export default function MapMarker({markerInfo}) {
+export default function MapMarker({markerInfo, setTickPanelInfo}) {
     let colour
     let severityLevel
 
@@ -34,17 +35,17 @@ export default function MapMarker({markerInfo}) {
                         markerRef.current.closePopup()
                     },
                     click: () => {
-                        console.log("This is a click")
+                        getTickPanelInfo(markerInfo.name, setTickPanelInfo)
                     }
             }}
         >
             <Popup>
                 <Typography variant="h1" color="secondary" sx={{ fontSize: '1.5rem' }}>{markerInfo.name}</Typography>
-                <Typography variant="body1" color="secondary">Severity: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{severityLevel}</Typography></Typography>
-                <Typography variant="body1" color="secondary">Recent sightings: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.recentSightings}</Typography></Typography>
-                <Typography variant="body1" color="secondary">Total sightings: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.sightings}</Typography></Typography>
-                <Typography variant="body1" color="secondary">Most recent sighting: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{markerInfo.mostRecentSighting}</Typography></Typography>
-                <Typography variant="body1" color="secondary">Recent species seen: <Typography component="body1" sx={{ fontWeight: 'bold' }}>{[...markerInfo.recentSpeciesSeen].join(", ")}</Typography></Typography>
+                <Typography variant="body1" color="secondary">Severity: {severityLevel}</Typography>
+                <Typography variant="body1" color="secondary">Recent sightings: {markerInfo.recentSightings}</Typography>
+                <Typography variant="body1" color="secondary">Total sightings: {markerInfo.sightings}</Typography>
+                <Typography variant="body1" color="secondary">Most recent sighting:{markerInfo.mostRecentSighting}</Typography>
+                <Typography variant="body1" color="secondary">Recent species seen: {[...markerInfo.recentSpeciesSeen].join(", ")}</Typography>
             </Popup>
         </Marker>
     )
