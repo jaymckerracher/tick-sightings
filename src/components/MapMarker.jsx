@@ -2,7 +2,7 @@ import { Marker, Popup } from "react-leaflet"
 import createIcon from '../utils/icons';
 import { useRef } from "react";
 import { Typography } from "@mui/material";
-import getTickPanelInfo from "../utils/getTickPanelInfo";
+import getCitySightings from "../utils/getCitySightings";
 import formatDate from "../utils/formatDate";
 
 export default function MapMarker({markersData, setTickPanelInfo}) {
@@ -35,7 +35,7 @@ export default function MapMarker({markersData, setTickPanelInfo}) {
                         markerRef.current.closePopup()
                     },
                     click: () => {
-                        getTickPanelInfo(markersData.name, setTickPanelInfo)
+                        getCitySightings(markersData.name, setTickPanelInfo)
                     }
             }}
         >

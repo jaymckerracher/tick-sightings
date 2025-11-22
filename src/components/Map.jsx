@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
 
-import getAllData from '../utils/getAllData';
+import getAllSightings from '../utils/getAllSightings';
 import getMarkersData from '../utils/getMarkersData';
 
 export default function Map({setTickPanelInfo}) {
@@ -17,7 +17,7 @@ export default function Map({setTickPanelInfo}) {
     const [mapLoading, setMapLoading] = useState(true)
 
     useEffect(() => {
-        getAllData()
+        getAllSightings()
             .then(function (data) {
                 setMarkersData(getMarkersData(data))
             })
