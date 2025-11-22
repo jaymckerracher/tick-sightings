@@ -1,7 +1,6 @@
-import { Marker, Popup, Tooltip } from "react-leaflet"
+import { Marker, Popup } from "react-leaflet"
 import createIcon from '../utils/icons';
-import { useEffect, useRef } from "react";
-import { marker } from "leaflet";
+import { useRef } from "react";
 import { Typography } from "@mui/material";
 import getTickPanelInfo from "../utils/getTickPanelInfo";
 

@@ -1,6 +1,6 @@
 import cities from '../cities.json';
 
-export default function getMarkerInfo(sightings) {
+export default function getMarkersData(sightings) {
     const markerInfo = {}
 
     for (const sighting of sightings) {
