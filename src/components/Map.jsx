@@ -7,7 +7,7 @@ import MapMarker from './MapMarker';
 import getAllSightings from '../utils/getAllSightings';
 import getMarkersData from '../utils/getMarkersData';
 
-export default function Map() {
+export default function Map({setTicksPanelCity}) {
     const ukBounds = [
         [48.5, -13],
         [62, 4]
@@ -50,7 +50,7 @@ export default function Map() {
                     />
     
                     {Object.values(markersData).map(data => (
-                        <MapMarker key={data.name} markersData={data}/>
+                        <MapMarker key={data.name} markersData={data} setTicksPanelCity={setTicksPanelCity}/>
                     ))}
                 </MapContainer>
             </div>

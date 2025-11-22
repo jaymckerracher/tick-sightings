@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import getCitySightings from "../utils/getCitySightings";
 import formatDate from "../utils/formatDate";
 
-export default function MapMarker({markersData}) {
+export default function MapMarker({markersData, setTicksPanelCity}) {
     let colour
     let severityLevel
 
@@ -35,7 +35,7 @@ export default function MapMarker({markersData}) {
                         markerRef.current.closePopup()
                     },
                     click: () => {
-                        getCitySightings(markersData.name, setTickPanelInfo)
+                        setTicksPanelCity(markersData.name)
                     }
             }}
         >
