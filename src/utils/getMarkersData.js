@@ -1,7 +1,7 @@
 import cities from '../cities.json';
 
 export default function getMarkersData(sightings) {
-    const markerInfo = {}
+    const markersData = {}
 
     for (const sighting of sightings) {
         const now = new Date()
@@ -9,11 +9,17 @@ export default function getMarkersData(sightings) {
         const twoYearsAgo =  2 * 365 * 24 * 60 * 60 * 1000; // two years for the sake of demo
         const isSightingRecent = now - sightingDate <= twoYearsAgo
 
-        if (sighting.location in markerInfo) {
-            markerInfo[sighting.location].sightings ++
-            if (isSightingRecent) markerInfo[sighting.location].recentSightings ++
-            markerInfo[sighting.location].speciesSeen.add(sighting.species)
-            if (isSightingRecent) markerInfo[sighting.location].recentSpeciesSeen.add(sighting.species)
+        if (sighting.location in markersData) {
+            markersData[sighting.location].sightings ++
+            markersData[sighting.location].speciesSeen.add(sighting.species)
+
+            if (isSightingRecent) {
+                markersData[sighting.location].recentSightings ++
+                markersData[sighting.location].recentSpeciesSeen.add(sighting.species)
+            }
+
+            const currentMostRecent = new Date(markersData[sighting.location].mostRecentSighting)
+            if (sightingDate > currentMostRecent) markersData[sighting.location].mostRecentSighting = sighting.date
         } else {
             const speciesSet = new Set()
             speciesSet.add(sighting.species)
@@ -21,7 +27,7 @@ export default function getMarkersData(sightings) {
             const recentSpeciesSet = new Set()
             if (isSightingRecent) recentSpeciesSet.add(sighting.species)
 
-            // Find city in gb.json
+            // Find city in gb.json to get coordinates
             const cityData = cities.find(city => city.city.toLowerCase() === sighting.location.toLowerCase());
             let lat = null;
             let long = null;
@@ -32,7 +38,7 @@ export default function getMarkersData(sightings) {
                 console.log(sighting.location)
             }
 
-            markerInfo[sighting.location] = {
+            markersData[sighting.location] = {
                 name: sighting.location,
                 lat: lat,
                 long: long,
@@ -45,7 +51,7 @@ export default function getMarkersData(sightings) {
         }
     }
 
-    return markerInfo
+    return markersData
 }
 
 // const exampleObj = {
