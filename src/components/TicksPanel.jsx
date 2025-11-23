@@ -5,6 +5,7 @@ import getAllSightings from '../utils/getAllSightings';
 import getCitySightings from '../utils/getCitySightings';
 import MyBackdrop from './MyBackdrop';
 import SightingCard from './SightingCard';
+import { DirectionsCar } from '@mui/icons-material';
 
 export default function TicksPanel({
     ticksPanelCity,
@@ -15,6 +16,15 @@ export default function TicksPanel({
     // ticks panel data
     const [ticksPanelLoading, setTicksPanelLoading] = useState(true);
     const [sightingsData, setSightingsData] = useState();
+
+    let directionsUrl;
+    if (ticksPanelCity !== "All cities") {
+        if (ticksPanelCity === "Newcastle") {
+            directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=${ticksPanelCity}+upon+Tyne`;
+        } else {
+            directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=${ticksPanelCity}`;
+        }
+    }
 
     useEffect(() => {
         setTicksPanelLoading(true);
@@ -50,8 +60,8 @@ export default function TicksPanel({
                         {ticksPanelCity ? `Sightings in ${ticksPanelCity}` : 'All cities'}
                     </Typography>
 
-                    <Link
-                        href="https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=Manchester"
+                    {ticksPanelCity === 'All Cities' ? <></> : <Link
+                        href={directionsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         underline="always"
@@ -59,7 +69,7 @@ export default function TicksPanel({
                     >
                         Get Directions
                         <OpenInNewIcon sx={{ fontSize: '1.1em', ml: 0.5 }} />
-                    </Link>
+                    </Link>}
 
                     {sightingsData.map(sighting => (
                         <SightingCard
@@ -74,5 +84,3 @@ export default function TicksPanel({
         </MyBackdrop>
     );
 }
-
-// https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=Manchester
