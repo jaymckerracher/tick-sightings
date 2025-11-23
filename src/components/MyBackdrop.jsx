@@ -5,20 +5,28 @@ export default function MyBackdrop({ children, state, stateSetter }) {
     return (
         <Backdrop
             open={state}
-            sx={{ color: 'primary.main', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            sx={{ color: 'primary.main', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            onClick={() => {
+                stateSetter(false)
+            }}
+        >
             <Box
                 sx={{
                     bgcolor: 'background.paper',
                     boxShadow: 24,
                     borderRadius: 2,
                     p: 4,
-                    width: '40vw',
+                    width: '700px',
                     height: '80vh',
                     overflowY: 'auto',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     position: 'relative',
+                }}
+
+                onClick={(e) => {
+                    e.stopPropagation()
                 }}
             >
                 <IconButton
