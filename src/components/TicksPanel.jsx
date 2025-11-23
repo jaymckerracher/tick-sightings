@@ -1,4 +1,4 @@
-import { Typography, CircularProgress, Link, FormControl, InputLabel, Select, MenuItem, Box, Divider, Button } from '@mui/material';
+import { Typography, CircularProgress, Link, FormControl, InputLabel, Select, MenuItem, Box, Divider, Button, ListItemIcon, ListItemText } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect, useState } from 'react';
 import getAllSightings from '../utils/getAllSightings';
@@ -6,6 +6,8 @@ import getCitySightings from '../utils/getCitySightings';
 import MyBackdrop from './MyBackdrop';
 import SightingCard from './SightingCard';
 import getCitiesFromMarkersData from '../utils/getCitiesFromMarkersData';
+import filterSightings from '../utils/filterSightings';
+import sortSightings from '../utils/sortSightings';
 
 export default function TicksPanel({
     ticksPanelCity,
@@ -20,7 +22,7 @@ export default function TicksPanel({
     const [sightingsData, setSightingsData] = useState();
     const [cities, setCities] = useState(["All Cities"]);
     const [filterSpecies, setFilterSpecies] = useState("All species")
-    const [sortBy, setSortBy] = useState("Date Descending")
+    const [sortBy, setSortBy] = useState("Descending")
 
     let directionsUrl;
     if (ticksPanelCity !== "All cities") {
@@ -37,7 +39,9 @@ export default function TicksPanel({
         if (ticksPanelCity === 'All Cities') {
             getAllSightings()
                 .then((data) => {
-                    setSightingsData(data)
+                    const filtered = filterSightings(data, filterSpecies)
+                    const sorted = sortSightings(filtered, sortBy)
+                    setSightingsData(sorted)
                 })
                 .then(() => {
                     setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
@@ -46,14 +50,16 @@ export default function TicksPanel({
         } else {
             getCitySightings(ticksPanelCity)
                 .then((data) => {
-                    setSightingsData(data)
+                    const filtered = filterSightings(data, filterSpecies)
+                    const sorted = sortSightings(filtered, sortBy)
+                    setSightingsData(sorted)
                 })
                 .then(() => {
                     setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
                     setTicksPanelLoading(false);
                 })
         }
-    }, [ticksPanelCity]);
+    }, [ticksPanelCity, filterSpecies, sortBy]);
 
     return (
         <MyBackdrop state={ticksPanelOpen} stateSetter={setTicksPanelOpen}>
@@ -108,6 +114,10 @@ export default function TicksPanel({
 
                     <Divider sx={{ mb: 2, width: '100%' }} />
 
+                    {/* here goes the chart for total sightings over the months */}
+
+                    <Divider sx={{ mb: 2, width: '100%' }} />
+
                     <Box sx={{ width: "100%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                         <Box sx={{ width: "40%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                             <Typography variant='h6' sx={{ color: "secondary.main" }}>Filter species:</Typography>
@@ -147,7 +157,7 @@ export default function TicksPanel({
 
                             <FormControl fullWidth sx={{ m: 2 }}>
                                 <InputLabel
-                                    id="sighting-filter-species-label"
+                                    id="sighting-sort-by-label"
                                     sx={{
                                         color: 'secondary.main',
                                         '&.Mui-focused': {
@@ -155,7 +165,7 @@ export default function TicksPanel({
                                         },
                                     }}
                                 >
-                                    Species
+                                    Sort By
                                 </InputLabel>
 
                                 <Select
@@ -165,24 +175,12 @@ export default function TicksPanel({
                                     value={sortBy}
                                     onChange={e => setSortBy(e.target.value)}
                                 >
-                                    <MenuItem value="Date Descending">Date Descending</MenuItem>
-                                    <MenuItem value="Date Ascending">Date Ascending</MenuItem>
+                                    <MenuItem value="Descending">Date Descending</MenuItem>
+                                    <MenuItem value="Ascending">Date Ascending</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
                     </Box>
-
-                    <Button
-                        variant="contained"
-                        color="customBlue"
-                        sx={{ mb: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2, width: "35%" }}
-                        fullWidth
-                        onClick={() => {
-                            console.log("hello world")
-                        }}
-                    >
-                        Update Sightings
-                    </Button>
 
                     <Divider sx={{ mb: 2, width: '100%' }} />
 
