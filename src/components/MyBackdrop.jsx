@@ -1,6 +1,7 @@
 import { Backdrop, Box, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function Backdrop({ children, state, stateSetter }) {
+export default function MyBackdrop({ children, state, stateSetter }) {
     return (
         <Backdrop
             open={state}
