@@ -72,8 +72,8 @@ export default function SideBar({
 
 					<Slider
 						aria-labelledby="num-sightings-slider-label"
-						defaultValue={1}
-						min={1}
+                        value={filterMinSightings}
+						min={0}
 						max={100}
 						step={1}
 						valueLabelDisplay="auto"
@@ -108,6 +108,8 @@ export default function SideBar({
                             severity: 'All',
                             minNumSightings: 0
                         })
+                        setFilterSeverity("All")
+                        setFilterMinSightings(0)
                     }}
 				>
 					Reset Filters
