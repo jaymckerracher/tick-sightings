@@ -5,8 +5,6 @@ import getAllSightings from '../utils/getAllSightings';
 import getCitySightings from '../utils/getCitySightings';
 import MyBackdrop from './MyBackdrop';
 import SightingCard from './SightingCard';
-
-import getUkCities from '../utils/getUkCities';
 import getCitiesFromMarkersData from '../utils/getCitiesFromMarkersData';
 
 export default function TicksPanel({

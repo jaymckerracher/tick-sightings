@@ -41,13 +41,16 @@ export default function SightingCard({
                 image={image}
                 alt={sighting.species}
             />
-            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, p: 2 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, p: 2, position: 'relative' }}>
+                <Box sx={{ position: 'absolute', top: 16, right: 16, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                     <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                         {formatDate(sighting.date)}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                        {sighting.location}
+                    </Typography>
                 </Box>
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                         <Typography variant="h6" color="secondary.main" sx={{ fontWeight: 600, mr: 1 }}>
                             {sighting.species}
