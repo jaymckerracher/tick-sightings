@@ -1,4 +1,4 @@
-import { Typography, CircularProgress, Link, FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { Typography, CircularProgress, Link, FormControl, InputLabel, Select, MenuItem, Box, Divider, Button } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect, useState } from 'react';
 import getAllSightings from '../utils/getAllSightings';
@@ -106,7 +106,9 @@ export default function TicksPanel({
                         </Link>}
                     </Box>
 
-                    <Box sx={{ width: "100%", mt: 3, display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                    <Divider sx={{ mb: 2, width: '100%' }} />
+
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                         <Box sx={{ width: "40%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                             <Typography variant='h6' sx={{ color: "secondary.main" }}>Filter species:</Typography>
 
@@ -169,6 +171,20 @@ export default function TicksPanel({
                             </FormControl>
                         </Box>
                     </Box>
+
+                    <Button
+                        variant="contained"
+                        color="customBlue"
+                        sx={{ mb: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2, width: "35%" }}
+                        fullWidth
+                        onClick={() => {
+                            console.log("hello world")
+                        }}
+                    >
+                        Update Sightings
+                    </Button>
+
+                    <Divider sx={{ mb: 2, width: '100%' }} />
 
                     {sightingsData.map(sighting => (
                         <SightingCard
