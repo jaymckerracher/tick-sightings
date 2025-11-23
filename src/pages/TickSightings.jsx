@@ -15,15 +15,15 @@ export default function Sightings() {
     const [markersData, setMarkersData] = useState()
     const [mapLoading, setMapLoading] = useState(true)
     const [markersFilter, setMarkersFilter] = useState({
-        severity: null,
-        minNumSightings: null
+        severity: 'All',
+        minNumSightings: 0
     })
 
     useEffect(() => {
         setMapLoading(true);
         getAllSightings()
             .then(function (data) {
-                setMarkersData(getMarkersData(data))
+                setMarkersData(getMarkersData(data, markersFilter))
             })
             .then(() => {
                 setMapLoading(false)
@@ -31,7 +31,7 @@ export default function Sightings() {
             .catch(function (err) {
                 console.log(err)
             })
-    }, [])
+    }, [markersFilter])
 
     return (
         <>

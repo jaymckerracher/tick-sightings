@@ -2,8 +2,8 @@ import { Box, Typography, Divider, FormControl, InputLabel, Select, MenuItem, Bu
 import { useState } from 'react';
 
 export default function SideBar({ setMarkersFilter }) {
-	const [filterSeverity, setFilterSeverity] = useState('')
-    const [filterMinSightings, setFilterMinSightings] = useState(null)
+	const [filterSeverity, setFilterSeverity] = useState("All")
+    const [filterMinSightings, setFilterMinSightings] = useState(0)
 
 	return (
 		<Box
@@ -51,6 +51,7 @@ export default function SideBar({ setMarkersFilter }) {
                         value={filterSeverity}
                         onChange={e => setFilterSeverity(e.target.value)}
                     >
+                        <MenuItem value="All">All</MenuItem>
 						<MenuItem value="High">High</MenuItem>
 						<MenuItem value="Medium">Medium</MenuItem>
 						<MenuItem value="Low">Low</MenuItem>
@@ -89,6 +90,20 @@ export default function SideBar({ setMarkersFilter }) {
                     }}
 				>
 					Update Map
+				</Button>
+
+                <Button
+					variant="text"
+					sx={{ mt: 3, fontWeight: 600, fontSize: '1em', borderRadius: 2, color: 'customBlue.main' }}
+					fullWidth
+                    onClick={() => {
+                        setMarkersFilter({
+                            severity: 'All',
+                            minNumSightings: 0
+                        })
+                    }}
+				>
+					Reset Filters
 				</Button>
 			</Box>
 

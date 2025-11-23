@@ -1,6 +1,13 @@
 import cities from '../cities.json';
 
-export default function getMarkersData(sightings) {
+/*
+filterObj = {
+    severity: high,
+    minNumSightings: 76
+}
+*/
+
+export default function getMarkersData(sightings, filterObj) {
     const markersData = {}
 
     for (const sighting of sightings) {
@@ -51,7 +58,21 @@ export default function getMarkersData(sightings) {
         }
     }
 
-    return markersData
+    // filter the sightings
+    const filteredMarkers = {};
+    for (const [key, value] of Object.entries(markersData)) {
+        // Severity filter
+        if (filterObj.severity === "High" && value.recentSightings < 7) continue;
+        if (filterObj.severity === "Medium" && (value.recentSightings < 4 || value.recentSightings > 6)) continue;
+        if (filterObj.severity === "Low" && value.recentSightings > 3) continue;
+
+        // Min number of sightings filter
+        if (filterObj.minNumSightings && value.sightings < filterObj.minNumSightings) continue;
+
+        filteredMarkers[key] = value;
+    }
+
+    return filteredMarkers;
 }
 
 // const exampleObj = {
