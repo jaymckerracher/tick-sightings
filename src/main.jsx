@@ -16,9 +16,9 @@ const root = document.getElementById("root");
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#f5f5f7' }, // soft off-white
-    secondary: { main: '#222831' }, // less harsh black for text
-    customBlue: { main: '#1976d2', contrastText: '#fff' }, // blue for buttons
+    primary: { main: '#f5f5f7' },
+    secondary: { main: '#222831' },
+    customBlue: { main: '#1976d2', contrastText: '#fff' },
   },
   typography: {
     fontFamily: 'Roboto, Arial, sans-serif',

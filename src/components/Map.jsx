@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
+import SideBar from './SideBar';
 
 import getAllSightings from '../utils/getAllSightings';
 import getMarkersData from '../utils/getMarkersData';
@@ -58,6 +59,8 @@ export default function Map({ setTicksPanelCity, setTicksPanelOpen }) {
                         />
                     ))}
                 </MapContainer>
+
+                <SideBar />
             </div>
         );
     }
