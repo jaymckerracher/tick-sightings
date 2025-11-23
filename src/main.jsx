@@ -30,7 +30,7 @@ ReactDOM.createRoot(root).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Map />}/>
-        <Route path="/report-sighting" element={<Report />}/>
+        <Route path="/report" element={<Report />}/>
       </Routes>
     </BrowserRouter>
   </ThemeProvider>

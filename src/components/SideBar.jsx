@@ -1,5 +1,6 @@
 import { Box, Typography, Divider, FormControl, InputLabel, Select, MenuItem, Button, List, ListItem, ListItemButton, ListItemText, Slider } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from "react-router";
 
 export default function SideBar({
     setMarkersFilter,
@@ -9,6 +10,7 @@ export default function SideBar({
 }) {
 	const [filterSeverity, setFilterSeverity] = useState("All")
     const [filterMinSightings, setFilterMinSightings] = useState(0)
+    let navigate = useNavigate()
 
 	return (
 		<Box
@@ -158,6 +160,9 @@ export default function SideBar({
                     color="customBlue"
                     sx={{ mt: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2 }}
                     fullWidth
+                    onClick={() => {
+                        navigate('/report')
+                    }}
                 >
                     Report Sighting
                 </Button>
