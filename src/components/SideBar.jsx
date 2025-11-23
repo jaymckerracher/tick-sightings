@@ -1,7 +1,12 @@
 import { Box, Typography, Divider, FormControl, InputLabel, Select, MenuItem, Button, List, ListItem, ListItemButton, ListItemText, Slider } from '@mui/material';
 import { useState } from 'react';
 
-export default function SideBar({ setMarkersFilter }) {
+export default function SideBar({
+    setMarkersFilter,
+    setSpeciesGuideOpen,
+    setPreventionTipsOpen,
+    setSeasonalActivityOpen
+}) {
 	const [filterSeverity, setFilterSeverity] = useState("All")
     const [filterMinSightings, setFilterMinSightings] = useState(0)
 
@@ -114,17 +119,23 @@ export default function SideBar({ setMarkersFilter }) {
 				<Divider sx={{ mb: 1.5, width: '100%' }} />
 				<List dense disablePadding>
 					<ListItem disablePadding>
-						<ListItemButton>
+						<ListItemButton onClick={() => {
+                            setSpeciesGuideOpen(true)
+                        }}>
 							<ListItemText primary="Species Guide" />
 						</ListItemButton>
 					</ListItem>
 					<ListItem disablePadding>
-						<ListItemButton>
+						<ListItemButton onClick={() => {
+                            setPreventionTipsOpen(true)
+                        }}>
 							<ListItemText primary="Prevention Tips" />
 						</ListItemButton>
 					</ListItem>
 					<ListItem disablePadding>
-						<ListItemButton>
+						<ListItemButton onClick={() => {
+                            setSeasonalActivityOpen(true)
+                        }}>
 							<ListItemText primary="Seasonal Activity" />
 						</ListItemButton>
 					</ListItem>
@@ -148,7 +159,7 @@ export default function SideBar({ setMarkersFilter }) {
                     sx={{ mt: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2 }}
                     fullWidth
                 >
-                    Report a Sighting
+                    Report Sighting
                 </Button>
             </Box>
 		</Box>
