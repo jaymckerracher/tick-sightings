@@ -57,9 +57,11 @@ export default function Sightings() {
             />
             <TicksPanel
                 ticksPanelCity={ticksPanelCity}
+                setTicksPanelCity={setTicksPanelCity}
                 ticksPanelOpen={ticksPanelOpen}
                 setTicksPanelOpen={setTicksPanelOpen}
                 setSpeciesGuideOpen={setSpeciesGuideOpen}
+                markersData={markersData}
             />
             <SpeciesGuidePanel
                 speciesGuideOpen={speciesGuideOpen}

@@ -1,21 +1,26 @@
-import { Backdrop, Box, Typography, CircularProgress, IconButton, Link } from '@mui/material';
+import { Typography, CircularProgress, Link, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect, useState } from 'react';
 import getAllSightings from '../utils/getAllSightings';
 import getCitySightings from '../utils/getCitySightings';
 import MyBackdrop from './MyBackdrop';
 import SightingCard from './SightingCard';
-import { DirectionsCar } from '@mui/icons-material';
+
+import getUkCities from '../utils/getUkCities';
+import getCitiesFromMarkersData from '../utils/getCitiesFromMarkersData';
 
 export default function TicksPanel({
     ticksPanelCity,
+    setTicksPanelCity,
     ticksPanelOpen,
     setTicksPanelOpen,
-    setSpeciesGuideOpen
+    setSpeciesGuideOpen,
+    markersData
 }) {
     // ticks panel data
     const [ticksPanelLoading, setTicksPanelLoading] = useState(true);
     const [sightingsData, setSightingsData] = useState();
+    const [cities, setCities] = useState(["All Cities"]);
 
     let directionsUrl;
     if (ticksPanelCity !== "All cities") {
@@ -26,6 +31,8 @@ export default function TicksPanel({
         }
     }
 
+    // console.log(getCitiesFromMarkersData())
+
     useEffect(() => {
         setTicksPanelLoading(true);
 
@@ -35,6 +42,7 @@ export default function TicksPanel({
                     setSightingsData(data)
                 })
                 .then(() => {
+                    setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
                     setTicksPanelLoading(false);
                 })
         } else {
@@ -43,6 +51,7 @@ export default function TicksPanel({
                     setSightingsData(data)
                 })
                 .then(() => {
+                    setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
                     setTicksPanelLoading(false);
                 })
         }
@@ -57,8 +66,34 @@ export default function TicksPanel({
             ) : (
                 <>
                     <Typography variant="h2" color='secondary.main' sx={{ fontSize: '1.3em', mb: 1 }}>
-                        {ticksPanelCity ? `Sightings in ${ticksPanelCity}` : 'All cities'}
+                        Sightings in
                     </Typography>
+
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                        <InputLabel
+                            id="city-label"
+                            sx={{
+                                color: 'secondary.main',
+                                '&.Mui-focused': {
+                                    color: 'secondary.main',
+                                },
+                            }}
+                        >
+                            City
+                        </InputLabel>
+
+                        <Select
+                            labelId="city-label"
+                            id="city-select"
+                            label="City"
+                            value={ticksPanelCity}
+                            onChange={e => setTicksPanelCity(e.target.value)}
+                        >
+                            {cities.map(city => (
+                                <MenuItem value={city}>{city}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
                     {ticksPanelCity === 'All Cities' ? <></> : <Link
                         href={directionsUrl}
