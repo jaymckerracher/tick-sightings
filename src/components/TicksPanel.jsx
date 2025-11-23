@@ -5,11 +5,12 @@ import getCitySightings from '../utils/getCitySightings';
 import MyBackdrop from './MyBackdrop';
 
 export default function TicksPanel({ ticksPanelCity, ticksPanelOpen, setTicksPanelOpen }) {
+    // ticks panel data
     const [ticksPanelLoading, setTicksPanelLoading] = useState(true);
     const [sightingsData, setSightingsData] = useState();
 
     useEffect(() => {
-        if (!ticksPanelCity) {
+        if (ticksPanelCity = 'All Cities') {
             setTicksPanelLoading(true);
             getAllSightings()
                 .then((data) => {

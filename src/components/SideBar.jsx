@@ -1,6 +1,10 @@
-import { Box, Typography, Divider, FormControl, InputLabel, Select, MenuItem, Button, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Box, Typography, Divider, FormControl, InputLabel, Select, MenuItem, Button, List, ListItem, ListItemButton, ListItemText, Slider } from '@mui/material';
+import { useState } from 'react';
 
-export default function SideBar() {
+export default function SideBar({ setMarkersFilter }) {
+	const [filterSeverity, setFilterSeverity] = useState('')
+    const [filterMinSightings, setFilterMinSightings] = useState(null)
+
 	return (
 		<Box
 			sx={{
@@ -24,36 +28,75 @@ export default function SideBar() {
 				<Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
 					Filters
 				</Typography>
-				<Divider sx={{ mb: 2, width: '92%' }} />
+
+				<Divider sx={{ mb: 2, width: '100%' }} />
+
 				<FormControl fullWidth sx={{ mb: 2 }}>
-					<InputLabel id="severity-label">Severity</InputLabel>
-					<Select
-						labelId="severity-label"
-						id="severity-select"
-						label="Severity"
-						value=""
+					<InputLabel
+						id="severity-label"
+						sx={{
+							color: 'secondary.main',
+							'&.Mui-focused': {
+								color: 'secondary.main',
+							},
+						}}
 					>
-						{/* No options yet */}
+						Severity
+					</InputLabel>
+
+                    <Select
+                        labelId="severity-label"
+                        id="severity-select"
+                        label="Severity"
+                        value={filterSeverity}
+                        onChange={e => setFilterSeverity(e.target.value)}
+                    >
+						<MenuItem value="High">High</MenuItem>
+						<MenuItem value="Medium">Medium</MenuItem>
+						<MenuItem value="Low">Low</MenuItem>
 					</Select>
 				</FormControl>
-				<FormControl fullWidth>
-					<InputLabel id="num-sightings-label">Number of Sightings</InputLabel>
-					<Select
-						labelId="num-sightings-label"
-						id="num-sightings-select"
-						label="Number of Sightings"
-						value=""
-					>
-						{/* No options yet */}
-					</Select>
-				</FormControl>
+                
+				<Box sx={{ mt: 3 }}>
+					<Typography id="num-sightings-slider-label" sx={{ color: 'secondary.main', fontWeight: 500, mb: 1 }} gutterBottom>
+						Min. Number of Sightings
+					</Typography>
+
+					<Slider
+						aria-labelledby="num-sightings-slider-label"
+						defaultValue={1}
+						min={1}
+						max={100}
+						step={1}
+						valueLabelDisplay="auto"
+						sx={{ color: 'customBlue.main' }}
+                        onChange={(e) => {
+                            setFilterMinSightings(e.target.value)
+                        }}
+					/>
+				</Box>
+
+				<Button
+					variant="contained"
+					color="customBlue"
+					sx={{ mt: 3, fontWeight: 600, fontSize: '1em', borderRadius: 2 }}
+					fullWidth
+                    onClick={() => {
+                        setMarkersFilter({
+                            severity: filterSeverity,
+                            minNumSightings: filterMinSightings
+                        })
+                    }}
+				>
+					Update Map
+				</Button>
 			</Box>
 
 			<Box>
 				<Typography variant="h6" sx={{ fontWeight: 600, mt: 2, mb: 0.5 }}>
 					Learn
 				</Typography>
-				<Divider sx={{ mb: 1.5, width: '92%' }} />
+				<Divider sx={{ mb: 1.5, width: '100%' }} />
 				<List dense disablePadding>
 					<ListItem disablePadding>
 						<ListItemButton>
@@ -73,14 +116,26 @@ export default function SideBar() {
 				</List>
 			</Box>
 
-			<Button
-				variant="contained"
-				color="customBlue"
-				sx={{ mt: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2 }}
-				fullWidth
-			>
-				Report a Sighting
-			</Button>
+			<Box>
+                <Typography variant="h6" sx={{ fontWeight: 600, mt: 2, mb: 0.5 }}>
+					Report a Sighting
+				</Typography>
+
+				<Divider sx={{ mb: 1.5, width: '100%' }} />
+
+                <Typography variant="body1">
+					Have you recently seen a tick? Click below to submit a sighting so that others can be aware.
+				</Typography>
+
+                <Button
+                    variant="contained"
+                    color="customBlue"
+                    sx={{ mt: 2, fontWeight: 600, fontSize: '1.1em', borderRadius: 2 }}
+                    fullWidth
+                >
+                    Report a Sighting
+                </Button>
+            </Box>
 		</Box>
 	);
 }

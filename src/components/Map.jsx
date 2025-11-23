@@ -1,34 +1,18 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
-import { useEffect, useState } from 'react';
 
 import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
-import SideBar from './SideBar';
 
-import getAllSightings from '../utils/getAllSightings';
-import getMarkersData from '../utils/getMarkersData';
-
-export default function Map({ setTicksPanelCity, setTicksPanelOpen }) {
+export default function Map({ 
+    setTicksPanelCity, 
+    setTicksPanelOpen,
+    markersData,
+    mapLoading
+}) {
     const ukBounds = [
         [48.5, -13],
         [62, 4]
     ];
-
-    const [markersData, setMarkersData] = useState()
-    const [mapLoading, setMapLoading] = useState(true)
-
-    useEffect(() => {
-        getAllSightings()
-            .then(function (data) {
-                setMarkersData(getMarkersData(data))
-            })
-            .then(() => {
-                setMapLoading(false)
-            })
-            .catch(function (err) {
-                console.log(err)
-            })
-    }, [])
 
     if (mapLoading) {
         return (
@@ -59,8 +43,6 @@ export default function Map({ setTicksPanelCity, setTicksPanelOpen }) {
                         />
                     ))}
                 </MapContainer>
-
-                <SideBar />
             </div>
         );
     }
