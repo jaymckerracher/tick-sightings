@@ -1,4 +1,5 @@
-import { Backdrop, Box, Typography, CircularProgress, IconButton } from '@mui/material';
+import { Backdrop, Box, Typography, CircularProgress, IconButton, Link } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEffect, useState } from 'react';
 import getAllSightings from '../utils/getAllSightings';
 import getCitySightings from '../utils/getCitySightings';
@@ -45,12 +46,22 @@ export default function TicksPanel({
                 <CircularProgress />
             ) : (
                 <>
-                    <Typography variant="h2" color='secondary.main' sx={{ fontSize: '1.3em', mb: 3 }}>
+                    <Typography variant="h2" color='secondary.main' sx={{ fontSize: '1.3em', mb: 1 }}>
                         {ticksPanelCity ? `Sightings in ${ticksPanelCity}` : 'All cities'}
                     </Typography>
 
+                    <Link
+                        href="https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=Manchester"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="always"
+                        sx={{ display: 'flex', alignItems: 'center', fontSize: '1.3em', fontWeight: 500, color: 'text.secondary' }}
+                    >
+                        Get Directions
+                        <OpenInNewIcon sx={{ fontSize: '1.1em', ml: 0.5 }} />
+                    </Link>
+
                     {sightingsData.map(sighting => (
-                        // <Typography>Hello</Typography>
                         <SightingCard
                             key={sighting.id}
                             sighting={sighting}
@@ -63,3 +74,5 @@ export default function TicksPanel({
         </MyBackdrop>
     );
 }
+
+// https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=Manchester

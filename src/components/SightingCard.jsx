@@ -72,6 +72,3 @@ export default function SightingCard({
         </Card>
     );
 }
-
-
-// https://www.google.com/maps/dir/Portsmouth/Manchester
