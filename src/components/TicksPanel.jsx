@@ -1,65 +1,57 @@
-import { Paper, Typography } from '@mui/material';
+import { Backdrop, Box, Typography, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import getAllSightings from '../utils/getAllSightings';
 import getCitySightings from '../utils/getCitySightings';
-import { CircularProgress } from '@mui/material';
 
-export default function TicksPanel({ticksPanelCity}) {
-    const [ticksPanelLoading, setTicksPanelLoading] = useState(true)
-    const [sightingsData, setSightingsData] = useState()
+export default function TicksPanel({ ticksPanelCity }) {
+    const [ticksPanelLoading, setTicksPanelLoading] = useState(true);
+    const [sightingsData, setSightingsData] = useState();
 
     useEffect(() => {
         if (!ticksPanelCity) {
-            setTicksPanelLoading(true)
+            setTicksPanelLoading(true);
             getAllSightings()
                 .then((data) => {
-                    setSightingsData(data)
+                    setSightingsData(data);
                 })
                 .then(() => {
-                    setTicksPanelLoading(false)
+                    setTicksPanelLoading(false);
                 })
                 .catch((err) => {
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         }
-    }, [ticksPanelCity])
+    }, [ticksPanelCity]);
 
-    if (ticksPanelLoading) {
-        return (
-            <Paper
-                elevation={6}
+    return (
+        <Backdrop open sx={{ color: 'primary.main', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <Box
                 sx={{
-                    zIndex: 1,
-                    position: 'fixed',
-                    left: '1%',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    height: '70%',
-                    width: '25%',
-                    backgroundColor: 'primary.main',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    borderRadius: 2,
+                    p: 4,
+                    minWidth: 350,
+                    maxWidth: 500,
+                    width: '90%',
+                    maxHeight: '80vh',
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                 }}
             >
-                <CircularProgress />
-            </Paper>
-        )
-    }
-    return (
-        <Paper
-            elevation={6}
-            sx={{
-                zIndex: 1,
-                position: 'fixed',
-                left: '1%',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                height: '70%',
-                width: '25%',
-                backgroundColor: 'primary.main',
-            }}
-        >
-            <Typography variant='h1' sx={{ fontSize: "1.8em" }}>Tick Sightings</Typography>
-            <Typography variant='h2' sx={{ fontSize: "1.3em" }}>{ticksPanelCity ? `Sightings in ${ticksPanelCity}` : 'All cities'}</Typography>
-
-        </Paper>
+                {ticksPanelLoading ? (
+                    <CircularProgress />
+                ) : (
+                    <>
+                        <Typography variant="h1" color='secondary.main' sx={{ fontSize: '1.8em', mb: 2 }}>Tick Sightings</Typography>
+                        <Typography variant="h2" color='secondary.main' sx={{ fontSize: '1.3em', mb: 3 }}>
+                            {ticksPanelCity ? `Sightings in ${ticksPanelCity}` : 'All cities'}
+                        </Typography>
+                    </>
+                )}
+            </Box>
+        </Backdrop>
     );
 }
