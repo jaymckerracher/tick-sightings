@@ -2,6 +2,7 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 
 import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
+import Loading from './Loading';
 
 export default function Map({ 
     setTicksPanelCity, 
@@ -16,7 +17,7 @@ export default function Map({
 
     if (mapLoading) {
         return (
-            <CircularProgress />
+            <Loading open={mapLoading}/>
         )
     } else {
         return (

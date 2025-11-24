@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Typography, Box, IconButton } from "@mui/material"
+import { Card, CardMedia, Typography, Box, IconButton } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
 import southernRodent from '../assets/southern-rodent.jpeg'
 import treeHole from '../assets/tree-hole.jpg'
@@ -31,6 +31,10 @@ export default function SightingCard({
             break;
         default:
             image = southernRodent;
+    }
+
+    if (sighting.imageURL) {
+        image = sighting.imageURL
     }
 
     return (

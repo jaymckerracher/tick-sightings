@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 
-export default async function submitSighting({ city, species, file}) {
+export default async function submitSighting({ location, species, file}) {
     let publicUrl = null
 
     if (file) {
@@ -40,8 +40,8 @@ export default async function submitSighting({ city, species, file}) {
     const { data, error } = await supabase
         .from("tick_sightings")
         .insert([{
-            imageUrl: publicUrl,
-            city: city,
+            imageURL: publicUrl,
+            location: location,
             species: species,
             latinName: latinName
         }])

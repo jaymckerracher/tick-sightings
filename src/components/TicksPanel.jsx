@@ -10,6 +10,7 @@ import filterSightings from '../utils/filterSightings';
 import sortSightings from '../utils/sortSightings';
 import getChartData from '../utils/getChartData';
 import CustomLineChart from './CustomLineChart';
+import Loading from './Loading';
 
 export default function TicksPanel({
     ticksPanelCity,
@@ -80,7 +81,7 @@ export default function TicksPanel({
             <Typography variant="h1" color='secondary.main' sx={{ fontSize: '1.8em', mb: 2 }}>Tick Sightings</Typography>
             
             {ticksPanelLoading ? (
-                <CircularProgress />
+                <Loading open={ticksPanelLoading}/>
             ) : (
                 <>
                     <Box sx={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "center", p: 1 }}>
