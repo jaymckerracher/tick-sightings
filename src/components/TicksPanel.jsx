@@ -8,6 +8,8 @@ import SightingCard from './SightingCard';
 import getCitiesFromMarkersData from '../utils/getCitiesFromMarkersData';
 import filterSightings from '../utils/filterSightings';
 import sortSightings from '../utils/sortSightings';
+import getChartData from '../utils/getChartData';
+import CustomLineChart from './CustomLineChart';
 
 export default function TicksPanel({
     ticksPanelCity,
@@ -23,6 +25,8 @@ export default function TicksPanel({
     const [cities, setCities] = useState(["All Cities"]);
     const [filterSpecies, setFilterSpecies] = useState("All species")
     const [sortBy, setSortBy] = useState("Descending")
+    const [chartXAxisData, setChartXAxisData] = useState([])
+    const [chartValues, setChartValues] = useState([])
 
     let directionsUrl;
     if (ticksPanelCity !== "All cities") {
@@ -42,8 +46,13 @@ export default function TicksPanel({
                     const filtered = filterSightings(data, filterSpecies)
                     const sorted = sortSightings(filtered, sortBy)
                     setSightingsData(sorted)
+                    
+                    return sortSightings(filtered, "Ascending")
                 })
-                .then(() => {
+                .then((sortedAscending) => {
+                    const chartData = getChartData(sortedAscending)
+                    setChartXAxisData(Object.keys(chartData))
+                    setChartValues(Object.values(chartData))
                     setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
                     setTicksPanelLoading(false);
                 })
@@ -53,8 +62,13 @@ export default function TicksPanel({
                     const filtered = filterSightings(data, filterSpecies)
                     const sorted = sortSightings(filtered, sortBy)
                     setSightingsData(sorted)
+
+                    return sortSightings(filtered, "Ascending")
                 })
-                .then(() => {
+                .then((sortedAscending) => {
+                    const chartData = getChartData(sortedAscending)
+                    setChartXAxisData(Object.keys(chartData))
+                    setChartValues(Object.values(chartData))
                     setCities(["All Cities", ...getCitiesFromMarkersData(markersData)])
                     setTicksPanelLoading(false);
                 })
@@ -114,7 +128,20 @@ export default function TicksPanel({
 
                     <Divider sx={{ mb: 2, width: '100%' }} />
 
-                    {/* here goes the chart for total sightings over the months */}
+                    <Typography
+                        variant='h6'
+                        sx={{ color: 'secondary.main' }}
+                    >
+                        Sightings per month:
+                    </Typography>
+
+                    {
+                        chartValues.length > 0 || chartXAxisData.length > 0 ?
+                            <CustomLineChart 
+                                xAxisData={chartXAxisData}
+                                values={chartValues}
+                            /> : null
+                    }
 
                     <Divider sx={{ mb: 2, width: '100%' }} />
 
