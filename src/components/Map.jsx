@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
 
-import { CircularProgress } from '@mui/material';
 import MapMarker from './MapMarker';
 import Loading from './Loading';
 
