@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import getAllSightings from '../utils/getAllSightings';
 import getMarkersData from '../utils/getMarkersData';
+import { Typography } from '@mui/material';
 
 import Map from '../components/Map';
 import TicksPanel from '../components/TicksPanel';
@@ -68,6 +69,20 @@ export default function Sightings() {
                 preventionTipsOpen={preventionTipsOpen}
                 setPreventionTipsOpen={setPreventionTipsOpen}
             />
+            <Typography
+                variant="h4"
+                sx={{
+                    position: 'fixed',
+                    bottom: 16,
+                    left: 24,
+                    m: 0,
+                    color: 'customBlue.main',
+                    zIndex: 90,
+                    fontWeight: 500
+                }}
+            >
+                Elanco Tick Tracker
+            </Typography>
         </>
     );
 }
