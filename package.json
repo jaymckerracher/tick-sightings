@@ -16,6 +16,7 @@
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
     "@mui/x-charts": "^8.19.0",
+    "@supabase/supabase-js": "^2.84.0",
     "axios": "^1.13.2",
     "leaflet": "^1.9.4",
     "react": "^19.0.0-rc.1",
