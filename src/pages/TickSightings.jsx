@@ -7,7 +7,6 @@ import TicksPanel from '../components/TicksPanel';
 import SideBar from '../components/SideBar';
 import SpeciesGuidePanel from '../components/SpeciesGuidePanel';
 import PreventionTipsPanel from '../components/PreventionTIpsPanel';
-import SeasonalActivityPanel from '../components/SeasonalActivityPanel';
 
 export default function Sightings() {
     // ticks panel data
@@ -17,7 +16,6 @@ export default function Sightings() {
     // side panel learning resources
     const [speciesGuideOpen, setSpeciesGuideOpen] = useState(false)
     const [preventionTipsOpen, setPreventionTipsOpen] = useState(false)
-    const [seasonalActivityOpen, setSeasonalActivityOpen] = useState(false)
 
     // markers data
     const [markersData, setMarkersData] = useState()
@@ -53,7 +51,6 @@ export default function Sightings() {
                 setMarkersFilter={setMarkersFilter}
                 setSpeciesGuideOpen={setSpeciesGuideOpen}
                 setPreventionTipsOpen={setPreventionTipsOpen}
-                setSeasonalActivityOpen={setSeasonalActivityOpen}
             />
             <TicksPanel
                 ticksPanelCity={ticksPanelCity}
@@ -70,10 +67,6 @@ export default function Sightings() {
             <PreventionTipsPanel
                 preventionTipsOpen={preventionTipsOpen}
                 setPreventionTipsOpen={setPreventionTipsOpen}
-            />
-            <SeasonalActivityPanel
-                seasonalActivityOpen={seasonalActivityOpen}
-                setSeasonalActivityOpen={setSeasonalActivityOpen}
             />
         </>
     );

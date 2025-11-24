@@ -136,13 +136,6 @@ export default function SideBar({
 							<ListItemText primary="Prevention Tips" />
 						</ListItemButton>
 					</ListItem>
-					<ListItem disablePadding>
-						<ListItemButton onClick={() => {
-                            setSeasonalActivityOpen(true)
-                        }}>
-							<ListItemText primary="Seasonal Activity" />
-						</ListItemButton>
-					</ListItem>
 				</List>
 			</Box>
 
